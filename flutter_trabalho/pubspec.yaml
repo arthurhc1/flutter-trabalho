@@ -1,0 +1,39 @@
+name: flutter_trabalho
+description: A Flutter app for managing tasks with server synchronization.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Gerência de estado
+  provider: ^6.1.2
+
+  # Retrofit e comunicação com APIs
+  dio: ^5.0.3
+  retrofit: ^4.0.1
+  json_annotation: ^4.8.0
+
+  # Persistência local
+  shared_preferences: ^2.1.1
+
+  # Testes
+  flutter_test:
+    sdk: flutter
+
+  # Outros (caso queira temas adicionais ou utilidades)
+  intl: ^0.18.0
+  collection: ^1.17.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
+  retrofit_generator: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
