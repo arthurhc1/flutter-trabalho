@@ -16,7 +16,10 @@ class TaskProvider extends ChangeNotifier {
   bool get isDarkTheme => _isDarkTheme;
 
   Future<void> addTask(String title) async {
-    final newTask = Task(id: 0, title: title);
+    final nextId = _tasks.isNotEmpty ? _tasks.map((task) => task.id).reduce((a, b) => a > b ? a : b) + 1 : 1;
+
+    final newTask = Task(id: nextId, title: title);
+
     _tasks.add(newTask);
     notifyListeners();
 
@@ -24,13 +27,16 @@ class TaskProvider extends ChangeNotifier {
 
     try {
       final createdTask = await _apiService.createTask(newTask);
+
       _tasks.removeWhere((task) => task.id == newTask.id);
       _tasks.add(createdTask);
+
       notifyListeners();
     } catch (e) {
       print("Erro ao adicionar tarefa: $e");
     }
   }
+
 
   Future<void> toggleTaskCompletion(Task aTask) async {
     final taskIndex = _tasks.indexWhere((task) => aTask.id == task.id);
@@ -59,7 +65,7 @@ class TaskProvider extends ChangeNotifier {
   }
 
   Future<void> removeTask(Task task) async {
-    _tasks.removeWhere((task) => task.id == task.id);
+    _tasks.removeWhere((t) => t.id == task.id);
     await saveTasks();
 
     try {
